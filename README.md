@@ -34,6 +34,56 @@ Open a terminal window and type:
 ./osx-lamp-manager
 ```
 
+## User documentation
+```
+MAIN
+----
+
+1. Httpd Virtual Hosts
+2. Brew Managment
+3. Services
+
+q. quit
+
+Choose? 1
+```
+Select *Httpd Virtual Hosts*
+
+```
+HTTPD Virtual Hosts
+-------------------
+
+-none-
+
+-------------------
+  501 31169     1   0  3:36pm ??         0:01.04 /usr/local/opt/httpd/bin/httpd -D FOREGROUND
+and 5 workers
+
+1. Add
+2. Delete
+3. Load
+4. Save
+5. Restart
+6. Tail logs
+
+x. Back
+
+Choose? 3
+```
+Select *Load* to load current vhost configuration. This splits the current `httpd-vhosts.conf`
+into `vhost.1`, etc. You can edit, add and delete these. *Save* will create a new `httpd-vhosts.conf`.
+The `/etc/hosts` file will be updated and the skeleton root document copied in.
+You can restart if needed or tail the logs if there is a problem.
+
+NOTE: Keep the `VirtualHost` tags on the first and last line of the `vhost.n`.
+
+Options prefixed with a "-" are placeholders and have not been implemented.
+
+In the menu section, answering "q" will exit the application.
+In a sub-program you can `^c` to break out.
+Unfortunately, the border between menu and sub-program is in flux as the application grows - sorry!
+
+
 ## Mission statement
 ```
 [x] I want to be able to manage virtual hosts
@@ -43,3 +93,8 @@ Open a terminal window and type:
 [ ] I want to support other non-traditional LAMP applications e.g. node
 [ ] I want to manage MySQL/MariaDB users
 ```
+
+## Developers
+* When submitting when beginning a new feature please branch from `master`.
+* When submitting an Pull Request, please rebase before submitting.
+
