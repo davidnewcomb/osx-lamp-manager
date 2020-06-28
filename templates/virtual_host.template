@@ -1,0 +1,23 @@
+<VirtualHost *:%PORT%>
+
+	ServerAdmin %SERVER_ADMIN%
+
+	DocumentRoot %DOCUMENT_ROOT%
+	<Directory />
+		Options Indexes MultiViews FollowSymLinks
+		AllowOverride all
+		Require all granted
+		DirectoryIndex index.php index.html
+	</Directory>
+
+	LoadModule %PHP_MODULE% $(brew --prefix %PHP_VERSION%)/lib/httpd/modules/%PHP_VERSION_LIB%.so
+	<FilesMatch \.php$>
+		SetHandler application/x-httpd-php
+	</FilesMatch>
+
+	ServerName %SERVER_NAME%
+	ErrorLog "%ERROR_LOG%"
+	CustomLog "%CUSTOM_LOG%" common
+
+</VirtualHost>
+
