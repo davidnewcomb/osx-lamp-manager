@@ -1,0 +1,11 @@
+Remember to remove the datadir folder
+https://dev.mysql.com/doc/refman/5.7/en/data-directory-initialization.html
+
+Brew start=on-boot files
+~/Library/LaunchAgents/homebrew.mx*
+
+
+Setup humans need to do
+/usr/local/etc/httpd/httpd.conf
+Uncomment Virtual hosts Include
+

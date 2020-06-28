@@ -1,0 +1,161 @@
+#!/bin/bash
+
+. lang.sh
+. fn.sh
+
+
+menu_main() {
+	while [ "$ANSWER" != "x" ]
+	do
+		clear
+		print_title MAIN
+		echo "1. Httpd Virtual Hosts"
+		echo "2. Brew Managment"
+		echo "3. Services"
+		echo ""
+		echo "q. quit"
+		echo ""
+		question "Choose"
+		case "$ANSWER" in
+			1)
+				menu_httpd
+				;;
+			2)
+				menu_install
+				;;
+			3)
+				menu_service
+				;;
+		esac
+		ANSWER=""
+	done
+}
+
+menu_httpd() {
+	while [ "$ANSWER" != "x" ]
+	do
+		clear
+		./bin.httpd.vhost.list.sh
+		./bin.httpd.ps.sh
+		echo ""
+		echo "1. Add"
+		echo "2. Delete"
+		echo "3. Load"
+		echo "4. Save"
+		echo "5. Restart"
+		echo "6. Tail logs"
+		sub_menu_trailer
+		question "Choose"
+		case $ANSWER in
+			1)
+				T="./server_name.out"
+				$PYTHON bin.httpd.vhost.add.py $T
+				if [ $? -eq 0 ]
+				then
+					server_name=`cat $T`
+					./bin.etc.hosts.add.sh $server_name
+					rm $T
+				else
+					echo "FAILED: bin.httpd.vhost.add.py `perror $?`"
+					press_return
+				fi
+				;;
+			2)
+				question "Delete"
+				f="vhost.$ANSWER"
+				server_name=`grep "^ServerName" $f | sed 's/ServerName //'`
+				echo "Deleting $server_name ($f)"
+				rm $f
+				./bin.etc.hosts.delete.sh $server_name
+				;;
+			3)
+				question "Sure, you may get dups"
+				if [ "$ANSWER" = "y" ]
+				then
+					./bin.httpd.vhost.load.sh
+				fi
+				;;
+			4)
+				question "Sure"
+				if [ "$ANSWER" = "y" ]
+				then
+					./bin.httpd.vhost.save.sh
+				fi
+				press_return
+				;;
+			5)
+				brew services restart httpd
+				press_return
+				;;
+			6)
+				$BIN/bin.httpd.vhost.tail.sh
+				press_return
+				;;
+			x)
+				break
+				;;
+		esac
+	done
+}
+
+menu_install() {
+	while [ "$ANSWER" != "x" ]
+	do
+		clear
+		print_title "Brew installations"
+		echo "1. List installed versions"
+		echo "-2. Install"
+		echo "-3. Uninstall"
+		echo "4. Update (all) brew packages"
+		sub_menu_trailer
+		question "Choose"
+		case $ANSWER in
+			1)
+				$BIN/bin.brew.info.sh
+				press_return
+				;;
+			4)
+				$BIN/bin.brew.update.sh
+				press_return
+				;;
+		esac
+	done
+}
+
+menu_service() {
+	while [ "$ANSWER" != "x" ]
+	do
+		clear
+		$BIN/bin.services.running.sh
+		echo ""
+		echo "1. Start all services"
+		echo "2. Stop all services"
+		sub_menu_trailer
+		question "Choose"
+		case $ANSWER in
+			1)
+				$BIN/bin.services.start_all.sh
+				press_return
+				;;
+			2)
+				$BIN/bin.services.stop_all.sh
+				press_return
+				;;
+		esac
+	done
+}
+
+if [ ! -d "$TD" ]
+then
+	echo "Making temp directory: $TD"
+	mkdir -p $TD
+	if [ $? -ne 0 ]
+	then
+		echo "Failed to make temp folder $TD"
+		exit 1
+	fi
+fi
+
+menu_main
+
+echo "Quitting..."
