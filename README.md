@@ -17,22 +17,29 @@ figuring out how to open it up!
 
 ## Setup
 1. Setup install brew.
-> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
 2. Use brew to install the things you need:
-> brew install httpd
-> brew install mariadb
-> brew install php
-> brew install mysql@5.7
-
+```
+brew install httpd
+brew install mariadb
+brew install php
+brew install mongodb-community
+brew install mysql@5.7
+```
 ## Run
 Open a terminal window and type:
-> ./osx-lamp-manager
+```
+./osx-lamp-manager
+```
 
 ## Mission statement
+```
 [x] I want to be able to manage virtual hosts
 [ ] I want to switch/separate mysql and mariadb
 [ ] I want to manage php versions across virtual hosts
 [-] I want to manage LAMP applications under brew control
 [ ] I want to support other non-traditional LAMP applications e.g. node
 [ ] I want to manage MySQL/MariaDB users
-
+```
