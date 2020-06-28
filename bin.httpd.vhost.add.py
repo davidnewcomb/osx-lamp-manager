@@ -36,7 +36,14 @@ custom_log = ask_question("Custom log", x)
 template = """
 <VirtualHost *:$port>
 ServerAdmin $server_admin
+
 DocumentRoot $document_root
+<Directory />
+Options Indexes MultiViews FollowSymLinks
+AllowOverride all
+Require all granted
+</Directory>
+
 ServerName $server_name
 ErrorLog "$error_log"
 CustomLog "$custom_log" common
