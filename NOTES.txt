@@ -8,4 +8,4 @@ Brew start=on-boot files
 Setup humans need to do
 /usr/local/etc/httpd/httpd.conf
 Uncomment Virtual hosts Include
-
+Uncomment ext_filter_module

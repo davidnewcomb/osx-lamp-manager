@@ -84,3 +84,23 @@ printfn() {
 	printf $format $*
 }
 
+get_next_vhost_num() {
+	local idx=1
+	while [ true ]
+	do
+		if [ ! -f ./vhost.$idx.cfg ]
+		then
+			break
+		fi
+		let idx=idx+1
+	done
+	echo $idx
+}
+
+get_var_from() {
+	local file=$1
+	local name=$2
+
+	grep $name $file | sed "s/$name=//"
+}
+

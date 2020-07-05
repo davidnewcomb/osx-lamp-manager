@@ -39,43 +39,51 @@ menu_httpd() {
 		./bin.httpd.ps.sh
 		echo ""
 		echo "1. Add"
-		echo "2. Delete"
-		echo "3. Load"
-		echo "4. Save"
-		echo "5. Restart"
-		echo "6. Tail logs"
+		echo "2. Edit"
+		echo "3. Delete"
+		echo "4. Load"
+		echo "5. Save"
+		echo "6. Restart"
+		echo "7. Tail logs"
 		sub_menu_trailer
 		question "Choose"
 		case $ANSWER in
-			1)
-				T="./server_name.out"
-				$PYTHON bin.httpd.vhost.add.py $T
+			1|2)
+				if [ "$ANSWER" = "2" ]
+				then
+					question "Edit"
+					VHOST=$ANSWER
+				else
+					VHOST=`get_next_vhost_num`
+				fi
+				$BIN/bin.template.sh virtual_host $VHOST
 				if [ $? -eq 0 ]
 				then
-					server_name=`cat $T`
+					server_name=`get_var_from vhost.$VHOST.cfg OLM_SERVER_NAME`
 					./bin.etc.hosts.add.sh $server_name
-					rm $T
+					rm $TD/virtual_host.answer
 				else
 					echo "FAILED: bin.httpd.vhost.add.py `perror $?`"
 					press_return
 				fi
 				;;
-			2)
+			3)
 				question "Delete"
-				f="vhost.$ANSWER"
-				server_name=`grep "^ServerName" $f | sed 's/ServerName //'`
-				echo "Deleting $server_name ($f)"
-				rm $f
+				VHOST=$ANSWER
+				server_name=`get_var_from vhost.$VHOST.cfg OLM_SERVER_NAME`
+				echo "Deleting $server_name ($VHOST)"
+				rm vhost.$VHOST
+				rm vhost.$VHOST.cfg
 				./bin.etc.hosts.delete.sh $server_name
 				;;
-			3)
+			4)
 				question "Sure, you may get dups"
 				if [ "$ANSWER" = "y" ]
 				then
 					./bin.httpd.vhost.load.sh
 				fi
 				;;
-			4)
+			5)
 				question "Sure"
 				if [ "$ANSWER" = "y" ]
 				then
@@ -83,11 +91,11 @@ menu_httpd() {
 				fi
 				press_return
 				;;
-			5)
+			6)
 				brew services restart httpd
 				press_return
 				;;
-			6)
+			7)
 				$BIN/bin.httpd.vhost.tail.sh
 				press_return
 				;;

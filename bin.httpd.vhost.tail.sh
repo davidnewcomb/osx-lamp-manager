@@ -4,16 +4,21 @@
 . fn.sh
 
 question "Which vhost"
-f="vhost.$ANSWER"
+CFG=vhost.$ANSWER.cfg
 
-if [ ! -f $f ]
+if [ ! -f $CFG ]
 then
-	echo "Bad vhost number: $f does not exist"
+	echo "Bad vhost number: $CFG does not exist"
 	exit 1
 fi
-err_log=`grep "^ErrorLog" $f | sed 's/ErrorLog "\(.*\)"/\1/'`
-cus_log=`grep "^CustomLog" $f | sed 's/CustomLog "\(.*\)".*/\1/'`
-echo "Tail error: $err_log"
-echo "Tail error: $cus_log"
+
+get_var_from $CFG OLM_CUSTOM_LOG
+
+err_log=`get_var_from $CFG OLM_CUSTOM_LOG`
+cus_log=`get_var_from $CFG OLM_ERROR_LOG`
+
+echo "Tail error : $err_log"
+echo "Tail custom: $cus_log"
+
 tail -F $err_log $cus_log
 

@@ -8,7 +8,7 @@ echo "$L_SAVING_TO $HTTPDCONF"
 backup_file $HTTPDCONF
 cat $TEMPLATES/block.httpd-vhosts.conf.header.txt > $HTTPDCONF
 
-for vhost in `ls vhost.[0-9]*`
+for vhost in `ls vhost.* | grep -v cfg`
 do
 	cat $vhost >> $HTTPDCONF
 

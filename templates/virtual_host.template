@@ -1,5 +1,6 @@
 <VirtualHost *:%PORT%>
 
+	ServerName %SERVER_NAME%
 	ServerAdmin %SERVER_ADMIN%
 
 	DocumentRoot %DOCUMENT_ROOT%
@@ -10,12 +11,11 @@
 		DirectoryIndex index.php index.html
 	</Directory>
 
-	LoadModule %PHP_MODULE% $(brew --prefix %PHP_VERSION%)/lib/httpd/modules/%PHP_VERSION_LIB%.so
+	LoadModule %PHP_MODULE% $(brew --prefix %PHP_VERSION%)/lib/httpd/modules/%PHP_VERSION_LIB%
 	<FilesMatch \.php$>
 		SetHandler application/x-httpd-php
 	</FilesMatch>
 
-	ServerName %SERVER_NAME%
 	ErrorLog "%ERROR_LOG%"
 	CustomLog "%CUSTOM_LOG%" common
 
