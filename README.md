@@ -48,27 +48,38 @@ q. quit
 Choose? 1
 ```
 Select *Httpd Virtual Hosts*
-
 ```
 HTTPD Virtual Hosts
 -------------------
 
--none-
+1. www.example1.com
+2. www.example2.com
+3. www.example3.com
 
 -------------------
   501 31169     1   0  3:36pm ??         0:01.04 /usr/local/opt/httpd/bin/httpd -D FOREGROUND
 and 5 workers
 
 1. Add
-2. Delete
-3. Load
-4. Save
-5. Restart
-6. Tail logs
+2. Edit
+3. Delete
+4. Load
+5. Save
+6. Restart
+7. Tail logs
 
 x. Back
 
-Choose? 3
+Choose? 1
+Host name [example.com]? 
+Port number [8080]? 
+Server admin [webmaster@example.com]? 
+Document root [/usr/local/var/www/example.com]? 
+PHP Version [7.4]? 
+PHP Version lib [libphp7.so]? 
+PHP Version module [php7_module]? 
+Error log [/usr/local/var/log/httpd/example.com-error_log]? 
+Custom log [/usr/local/var/log/httpd/example.com-access_log]?
 ```
 Select *Load* to load current vhost configuration. This splits the current `httpd-vhosts.conf`
 into `vhost.1`, etc. You can edit, add and delete these. *Save* will create a new `httpd-vhosts.conf`.
