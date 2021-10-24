@@ -18,7 +18,7 @@ do
 		question "Copy skeleton for $doc_root"
 		if [ "$ANSWER" = "y" ]
 		then
-			cp -rvp $TEMPLATES/vhost.skel $doc_root
+			cp -rvp $TEMPLATES/skel.vhost $doc_root
 		fi
 	fi
 done

@@ -11,7 +11,7 @@
 		DirectoryIndex index.php index.html
 	</Directory>
 
-	LoadModule %PHP_MODULE% $(brew --prefix %PHP_VERSION%)/lib/httpd/modules/%PHP_VERSION_LIB%
+	LoadModule %PHP_MODULE% %PHP_VERSION_LIB%
 	<FilesMatch \.php$>
 		SetHandler application/x-httpd-php
 	</FilesMatch>

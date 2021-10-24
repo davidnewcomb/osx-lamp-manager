@@ -104,3 +104,8 @@ get_var_from() {
 	grep $name $file | sed "s/$name=//"
 }
 
+make_one_line() {
+	local file="$1"
+	tr -d '\n' < "$file"
+}
+

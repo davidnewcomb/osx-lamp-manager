@@ -24,10 +24,13 @@ figuring out how to open it up!
 ```
 brew install httpd
 brew install mariadb
-brew install php
 brew install mongodb-community
 brew install mysql@5.7
 ```
+I'm assuming you are using
+[shivammathur/homebrew-php](https://github.com/shivammathur/homebrew-php#add-this-tap)
+to manage your php installations.
+
 ## Run
 Open a terminal window and type:
 ```
