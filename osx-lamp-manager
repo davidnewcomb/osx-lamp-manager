@@ -134,22 +134,38 @@ menu_service() {
 	while [ "$ANSWER" != "x" ]
 	do
 		clear
-		$BIN/bin.services.running.sh
+		print_title "Brew Services"
+		$BIN/bin.brew.services.list.sh | tee $TD/brew.list.txt
 		echo ""
 		echo "1. Start all services"
 		echo "2. Stop all services"
+		echo "3. Start single services"
+		echo "4. Stop single services"
 		sub_menu_trailer
 		question "Choose"
 		case $ANSWER in
 			1)
-				$BIN/bin.services.start_all.sh
+				$BIN/bin.brew.services.start_all.sh
 				press_return
 				;;
 			2)
-				$BIN/bin.services.stop_all.sh
+				$BIN/bin.brew.services.stop_all.sh
+				press_return
+				;;
+			3)
+				question "Which service"
+				ser=$(head -$ANSWER $TD/brew.list.txt | tail -1 | awk '{print $2}' )
+				$BIN/bin.brew.services.start.sh $ser
+				press_return
+				;;
+			4)
+				question "Which service"
+				ser=$(head -$ANSWER $TD/brew.list.txt | tail -1 | awk '{print $2}' )
+				$BIN/bin.brew.services.stop.sh $ser
 				press_return
 				;;
 		esac
+		rm -f $TD/brew.list.txt
 	done
 }
 

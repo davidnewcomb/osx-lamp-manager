@@ -1,5 +1,4 @@
-/usr/libexec/findmydeviced
-/usr/libexec/findmydevice-user-agent
+#!/usr/bin/env bash
 
 /bin/sh /usr/local/opt/mysql@5.7/bin/mysqld_safe --datadir=/usr/local/var/mysql
 
