@@ -11,21 +11,21 @@ fi
 
 service="$1"
 
-brew services stop "$service" > "$BACKUP/$service.start.o.txt" 2> "$BACKUP/$service.start.e.txt"
+brew services stop "$service" > "$BACKUP/$service.stop.o.txt" 2> "$BACKUP/$service.stop.e.txt"
 if [ $? -eq 0 ]
 then
-	printfn "%-20sStarted" $service
+	printfn "%-20sStopped" $service
 else
 	printfn "%-20sFailed" $service
-	e=$(make_one_line "$BACKUP/$service.start.e.txt")
-	if [ -s "$BACKUP/$service.start.o.txt" ]
+	e=$(make_one_line "$BACKUP/$service.stop.e.txt")
+	if [ -s "$BACKUP/$service.stop.o.txt" ]
 	then
-		x=$(make_one_line "$BACKUP/$service.start.o.txt")
+		x=$(make_one_line "$BACKUP/$service.stop.o.txt")
 		echo "Out  : $o"
 	fi
-	if [ -s "$BACKUP/$service.start.e.txt" ]
+	if [ -s "$BACKUP/$service.stop.e.txt" ]
 	then
-		x=$(make_one_line "$BACKUP/$service.start.e.txt")
+		x=$(make_one_line "$BACKUP/$service.stop.e.txt")
 		echo "Error: $e"
 	fi
 fi
