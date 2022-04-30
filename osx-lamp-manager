@@ -141,6 +141,7 @@ menu_service() {
 		echo "2. Stop all services"
 		echo "3. Start single services"
 		echo "4. Stop single services"
+		echo "5. Restart single services"
 		sub_menu_trailer
 		question "Choose"
 		case $ANSWER in
@@ -162,6 +163,12 @@ menu_service() {
 				question "Which service"
 				ser=$(head -$ANSWER $TD/brew.list.txt | tail -1 | awk '{print $2}' )
 				$BIN/bin.brew.services.stop.sh $ser
+				press_return
+				;;
+			5)
+				question "Which service"
+				ser=$(head -$ANSWER $TD/brew.list.txt | tail -1 | awk '{print $2}' )
+				$BIN/bin.brew.services.restart.sh $ser
 				press_return
 				;;
 		esac

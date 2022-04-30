@@ -9,3 +9,6 @@ Setup humans need to do
 /usr/local/etc/httpd/httpd.conf
 Uncomment Virtual hosts Include
 Uncomment ext_filter_module
+
+Fixing postgres
+https://apple.stackexchange.com/questions/429012/homebrew-cant-start-service-get-bootstrap-failed-5-input-output-error-pos

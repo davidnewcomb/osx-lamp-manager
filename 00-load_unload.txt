@@ -1,0 +1,3 @@
+/bin/launchctl load /Users/davidnewcomb/Library/LaunchAgents/homebrew.mxcl.mariadb.plist
+/bin/launchctl unload /Users/davidnewcomb/Library/LaunchAgents/homebrew.mxcl.mariadb.plist
+
